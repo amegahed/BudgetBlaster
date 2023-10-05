@@ -1,6 +1,6 @@
 <p align="center">
   <div align="center">
-    <img src="./images/logos/budget-blaster.png" alt="Logo" style="width:75%">
+    <img src="./images/logos/budget-blaster.png" alt="Logo" style="width:50%">
   </div>
 </p>
 
