@@ -1,0 +1,49 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Budget Blaster</title>
+<link href="styles/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" valign="middle"><div class="page">
+        <div class="top border"></div>
+        <div class="content"> <img src="images/scott-walker/scott-walker.png" id="scott-walker" style="position:relative; float:right; z-index:2"><img src="images/capitol/capitol.png" style="position:absolute; right:50px; z-index:1">
+          <p align="center" class="title">My Master  Plan</p>
+          <p><img src="images/quotation-marks/quotation-marks-left.png" hspace="10" align="left" />I have developed a three point plan to balance the budget. To restore fiscal sanity, we must address the following  enemies of the hardworking Wisconsin taxpayer:</p>
+          <p>1. Democratic senators<br>
+            2. Public workers<br>
+            3. Teachers <span class="label"><img src="images/quotation-marks/quotation-marks-right.png" hspace="10"></span></p>
+          <table width="800" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td align="center" class="label"><p><img src="images/donkey/donkey-crosshairs.png"><br>
+                </p></td>
+              <td align="center" class="label"><img src="images/bee/bee-crosshairs.png" width="150" height="150"><br></td>
+              <td align="center" class="label"><img src="images/owl/owl-crosshairs.png" width="150" height="150"></td>
+            </tr>
+          </table>
+          <p align="center">
+            <input type="submit" name="Submit" value="Continue" id="nextButton">
+          </p>
+        </div>
+        <div class="bottom border"></div>
+      </div></td>
+  </tr>
+</table>
+</body>
+<script language="javascript" type="text/javascript" src="scripts/scott-walker.js"></script>
+<script language="javascript" type="text/javascript">
+//<![CDATA
+window.onload = function() {
+  document.getElementById("nextButton").onclick = function() {
+    window.location = "level1-intro.html";
+  }
+ 
+  // start animation
+  //
+  animateScottWalker(document.getElementById("scott-walker"));
+}
+//]]>
+</script>
+</html>

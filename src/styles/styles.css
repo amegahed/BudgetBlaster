@@ -1,0 +1,161 @@
+/***************************************************************\
+|                            page styles                        |
+\***************************************************************/
+
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	background-image: url(../graphics/background-gradient.gif);
+	background-repeat: repeat-x;
+	background-color: #666666;
+}
+
+.page {
+	width: 900px;
+	height: 600px;
+	background-color: #CCCCCC;
+	position: relative;
+}
+
+.content {
+	height: 550px;
+    vertical-align: top;
+	text-align: left;
+	padding-top: 25px;
+	padding-left: 50px;
+	padding-right: 50px;
+}
+
+#scott-walker {
+	padding: 25px;
+}
+
+#canvas {
+	width: 900px;
+	height: 550px;
+	overflow: hidden;
+	position: relative;
+	background: #CCCCCC;
+	/* background-image: url(images/backgrounds/sky-gradient.gif); */
+}
+
+.border {
+	background-image: url(../graphics/stars-and-stripes-border.png);
+	width: inherit;
+	width: 900px;
+	height: 24px;
+	left: 0px;
+}
+
+.border.top {
+}
+
+.border.bottom {
+	position: absolute;
+	left: 0px;
+	bottom: 0px;
+}
+
+#visitors {
+	width: 100px;
+	position: absolute;
+	right: 0px;
+	padding: 25px;
+}
+
+/***************************************************************\
+|                            text styles                        |
+\***************************************************************/
+
+p {
+	font-family: "Comic Sans MS", sans-serif;
+	font-variant: small-caps;
+	font-weight: bold;
+	font-size: 16px;	
+	line-height: 1.5em;
+}
+
+.title {
+	font-family: Century Gothic, sans-serif;
+	font-size: 28px;
+	font-weight: bold;
+	text-align: center;
+}
+
+.info {
+    /*
+	font-family: Century Gothic, sans-serif;
+	font-size: 22px;
+	font-weight: bold;
+	text-align: center;
+	color: #000000;
+	*/
+	font-family: "Comic Sans MS", sans-serif;
+	font-variant: small-caps;
+	font-weight: bold;
+	font-size: 18px;	
+	line-height: 1.5em;
+	
+	background-color: #FFFFFF;
+	padding: 10px;
+	border: #000000 2px solid;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+}
+
+.label {
+	font-family: "Comic Sans MS", sans-serif;
+	font-variant: small-caps;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 24px;
+}
+
+.digits {
+	/* font-family: Century Gothic, sans-serif; */
+	font-family: Courier New; 
+	font-size: 60px;
+	font-weight: bold;
+	line-height: 1em;
+}
+
+.red {
+	color: #F23737;
+}
+
+.blue {
+	color: #3757A5;
+}
+
+/***************************************************************\
+|                            table styles                       |
+\***************************************************************/
+
+table.text {
+	background-color: #FFFFFF;
+	padding: 10px;
+	border: #000000 2px solid;
+	border-radius: 10px;
+	-moz-border-radius: 10px;
+}
+
+table.text td {
+	padding: 0px;
+}
+
+/***************************************************************\
+|                          button styles                        |
+\***************************************************************/
+
+
+input {
+	font-family: "Comic Sans MS", sans-serif;
+	font-variant: small-caps;
+	font-weight: bold;
+	font-size: 16px;
+	color: #000000;
+	background-color: #3757A5; 
+	border: #000000 2px solid;
+}

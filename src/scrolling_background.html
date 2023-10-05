@@ -1,0 +1,126 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Scrolling Background</title>
+<link href="styles/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" valign="middle"><div class="page">
+        <div class="top border"></div>
+        <div id="canvas"></div>
+        <div class="bottom border"></div>
+      </div></td>
+  </tr>
+</table>
+</body>
+<script language="javascript" type="text/javascript" src="scripts/utilities/javascript_utils.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/utilities/string_utils.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/utilities/arrays.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/utilities/web_browser_utils.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/utilities/ascii.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/utilities/math_utils.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/components/component.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/rgb_color.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/vector2.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/vector3.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/extents2.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/extents3.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/canvas.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/icon.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/element.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/sprite.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/animated_sprite.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/sounds/sound.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/game_element.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/missile.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/spaceship.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/scrolling_background.js"></script>
+<script language="javascript" type="text/javascript">
+//<![CDATA
+function argumentsType(args, types){return true};			// disable type checking
+
+
+// game elements
+//
+var spaceship = new SpaceShip(new Vector3(-.5, 0, 3), 1, new Vector2(1, 0));
+var background = new ScrollingBackground(3, [
+  "farmland.png", "farmland.png"
+], 0, "bottom", "images/backgrounds/", 1);
+var nearBackground = new ScrollingBackground(2, [
+  "fields.png", "fields.png"
+], 0, "bottom", "images/backgrounds/", 2);
+var farBackground = new ScrollingBackground(2, [
+  "horizon.png", "horizon.png"
+], 0, "bottom", "images/backgrounds/", 0);
+var intervalTime = 30;
+
+function start() {
+  spaceship.setLocation(new Vector3(-.5, 0, spaceship.location.z));
+  spaceship.velocity = new Vector2(spaceship.minSpeed, 0);
+  spaceship.offset = -.5;
+  spaceship.hWrap = false;
+ 	    
+  // start background animation
+  //
+  window.interval = setInterval(function() {
+    spaceship.update(intervalTime);
+	
+    // pan background to follow spaceship
+	//
+    if (background.offset < background.length - 1) {	
+      var offset = -(spaceship.offset - spaceship.location.x);	
+	    
+	  // offset level
+	  //
+	  background.addOffset(offset);
+	  nearBackground.addOffset(offset * 1.5);
+	  farBackground.addOffset(offset * .5);
+	  
+	  // offset spaceship
+	  //
+	  spaceship.setLocation(new Vector3(spaceship.offset, spaceship.location.y, spaceship.location.z));
+	} else {
+  	
+	  // check to see if we're finished
+	  //
+	  if (spaceship.location.x > 1.5 && !spaceship.exploded) {
+	    window.clearInterval(interval);
+	  }
+	}
+  }, intervalTime);
+}	// start
+
+function scroll() {
+  window.setInterval(function() {
+    background.addOffset(.01);
+  }, 50);
+}
+
+window.onload = function() {
+
+  /*
+  var logo = document.getElementById("logo");
+  disableSelection(logo);
+  disableDragging(logo);
+  */
+  
+  // create new drawing canvas
+  //
+  var canvas = new Canvas("canvas");
+
+  // run!
+  //
+  canvas.load(spaceship);
+  canvas.load(background);
+  canvas.load(nearBackground);
+  canvas.load(farBackground);
+  start();
+  //scroll();
+}	// onload
+
+//]]>
+</script>
+</html>

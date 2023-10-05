@@ -1,0 +1,43 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Budget Blaster</title>
+<link href="styles/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" valign="middle"><div class="page">
+        <div class="top border"></div>
+        <div class="content">
+          <img src="images/scott-walker/scott-walker.png" id="scott-walker" style="position:relative; float:right; z-index:2"><img src="images/capitol/capitol.png" style="position:absolute; right:50px; z-index:1"><p align="center" class="title">Level 2: <br>
+            Public Workers </p>
+          <p align="center"><img src="images/bee/bee-crosshairs.png" width="150" height="150"></p>
+          <img src="images/quotation-marks/quotation-marks-left.png" hspace="10" align="left" />
+          <p>don't you just hate those public workers? Why can't they just get real jobs in the private sector like everyone else? Let's swat them down so we can replace them later with more efficient Workers from profitable corporations. </p>
+          <p>Public workers are the public enemy.  Your mission is to blast as many overpaid bloodsucking public workers as possible. <img src="images/quotation-marks/quotation-marks-right.png" hspace="10"><br>
+          </p>
+          <p align="center">
+            <input type="submit" name="Submit" value="Swat 'Em" id="nextButton">
+          </p>
+        </div>
+        <div class="bottom border"></div>
+      </div></td>
+  </tr>
+</table>
+</body>
+<script language="javascript" type="text/javascript" src="scripts/scott-walker.js"></script>
+<script language="javascript" type="text/javascript">
+//<![CDATA
+window.onload = function() {
+  document.getElementById("nextButton").onclick = function() {
+    window.location = "level2.html";
+  }
+  
+  // start animation
+  //
+  animateScottWalker(document.getElementById("scott-walker"));
+}
+//]]>
+</script>
+</html>

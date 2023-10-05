@@ -1,0 +1,183 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Budget Blaster</title>
+<link href="styles/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" valign="middle"><div class="page">
+        <div class="top border"></div>
+        <div id="canvas">
+          <table style="width:100%; height:100%" border="0" cellspacing="0" cellpadding="0" id="loading">
+            <tr>
+              <td align="center" valign="middle"><p align="center">Level 2: <br>
+                  Workers</p>
+                <img src="images/bee/bee-crosshairs.png">
+                <p>Loading...</p>
+                <br></td>
+            </tr>
+          </table>
+        </div>
+        <div class="bottom border"></div>
+      </div></td>
+  </tr>
+</table>
+</body>
+<script language="javascript" type="text/javascript" src="scripts/utilities/javascript_utils.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/utilities/string_utils.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/utilities/arrays.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/utilities/web_browser_utils.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/utilities/ascii.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/utilities/math_utils.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/utilities/cookies.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/components/component.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/rgb_color.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/vector2.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/vector3.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/extents2.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/extents3.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/canvas.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/icon.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/element.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/sprite.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/animated_sprite.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/rect.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/text.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/digital_display.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/graphics/items_display.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/sounds/sound.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/game_element.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/missile.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/spaceship.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/scrolling_background.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/game_level.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/worker.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/money.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/worker_game_level.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/workers.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/contributors.js"></script>
+<script language="javascript" type="text/javascript">
+//<![CDATA
+function assert(){return true};			// disable type checking
+
+// user interface
+//
+var messageDisplay = new Text("", new Vector3(0, .75, 1), "center", "middle", "info");
+var imageDisplay = new Sprite(null, new Vector3(0, .33, 1), .75);
+
+// score display
+//  
+var scoreDisplayLabel = new Text("Score", new Vector3(-.75, .8, 1), "center", "bottom", "label");
+var scoreDisplay = new DigitalDisplay(0, new Vector3(-.75, .7, 1), "center", "middle", "red digits", 2);
+
+// count display
+//  
+var countDisplayLabel = new Text("Workers Remaining", new Vector3(.75, .8, 1), "center", "bottom", "label");
+var countDisplay = new DigitalDisplay(workers.length, new Vector3(.75, .7, 1), "center", "middle", "blue digits", 2);
+
+// lives display
+//  
+var livesDisplayLabel = new Text("Lives Remaining", new Vector3(.75, -.7, 3), "center", "bottom", "label");
+var livesIcon = new Icon("images/capitol/capitol-small.png");
+var livesDisplay = new ItemsDisplay(new Vector3(.75, -.8, 3), livesIcon, 1, readCookie("lives"), .085);
+
+// game elements
+//
+var initialLocation = new Vector3(-.5, 0, 4);
+var spaceship = new SpaceShip(initialLocation, 1, new Vector2(1, 0));
+var levelLength = 10;
+var gameLevel = new WorkerGameLevel(levelLength, spaceship, workers, contributors, messageDisplay, imageDisplay, livesDisplay);
+
+
+window.onload = function() {
+
+  // hide loading graphic
+  //
+  document.getElementById("loading").style.display = "none";
+    
+  // create new drawing canvas
+  //
+  var canvas = new Canvas("canvas");
+
+  // load game elements
+  //
+  canvas.load(spaceship);
+  canvas.load(gameLevel);
+  
+  // load user interface
+  //
+  canvas.load(messageDisplay);
+  canvas.load([scoreDisplayLabel, scoreDisplay]);
+  canvas.load([countDisplayLabel, countDisplay]);
+  canvas.load([livesDisplayLabel, livesDisplay]);
+  
+  // total salaries of blasted workers
+  //
+  var minSalary;
+  var maxSalary;
+  var sumSalaries = 0;
+  
+  // add game level callbacks
+  //  
+  gameLevel.onhit = function(element) {
+    if (element instanceof Worker) {
+      scoreDisplay.setValue(scoreDisplay.value + 1);
+      countDisplay.setValue(countDisplay.value - 1);
+	  sumSalaries += element.salary;
+	  if (minSalary == undefined || element.salary < minSalary)
+	    minSalary = element.salary;
+	  if (maxSalary == undefined || element.salary > maxSalary)
+	    maxSalary = element.salary;
+    }
+  }
+  gameLevel.onmiss = function(element) {
+    if (element instanceof Worker)
+      countDisplay.setValue(countDisplay.value - 1);
+  }
+  gameLevel.oncollide = function(element) {
+    window.setTimeout(function() {
+      if (livesDisplay.value == 0) {
+	  
+        // game over
+        //
+        createCookie("score2", scoreDisplay.value, 1);
+        createCookie("lives", livesDisplay.value, 1);
+        window.location = "game-over.html";
+      } else {
+	  
+        // restart
+        //
+        spaceship.reset();
+        spaceship.shieldsUp(2000);
+        spaceship.setLocation(new Vector3(gameLevel.crashLocation.x, 0, spaceship.location.z));
+        spaceship.velocity = new Vector2(spaceship.minSpeed, 0);
+        spaceship.offset = gameLevel.crashOffset;
+      }
+    }, 3000);
+  }
+  gameLevel.onfinish = function() {
+  
+    // advance to next level
+    //
+    createCookie("score2", scoreDisplay.value, 1);
+    createCookie("lives", livesDisplay.value, 1);
+	createCookie("min-salary", minSalary, 1);
+	createCookie("max-salary", maxSalary, 1);
+	createCookie("sum-salaries", sumSalaries, 1);
+    window.location = "level2-report.html";
+  }
+    
+  // run!
+  //
+  gameLevel.start(30);
+  messageDisplay.flash(["Move the mouse to fly.", "Press any key or click the mouse button to fire."], 3000); 
+  window.setTimeout(function() {
+    messageDisplay.flash(["Don't public workers just bug you?", "Let's swat 'em!"], 3000); 
+  }, 4000);
+}	// onload
+//]]>
+</script>
+</html>

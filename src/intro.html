@@ -1,0 +1,45 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Budget Blaster</title>
+<link href="styles/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" valign="middle"><div class="page">
+        <div class="top border"></div>
+        <div class="content">
+          <p style="position: absolute">Scott Walker &amp; Co.<br>
+            Presents: </p>
+          <img src="images/scott-walker/scott-walker.png" align="right" id="scott-walker"/>
+          <p align="center"><img src="images/logos/budget-blaster.png" width="240" height="190"></p>
+          <img src="images/quotation-marks/quotation-marks-left.png" hspace="10" align="left" />
+          <p>My name is Scott Walker and I've just been elected Governor of the State of Wisconsin. </p>
+          <p> It seems that these uppity citizens have gotten into their heads all sorts of peculiar ideas about worker rights and complex budgetary issues that they have no business trying to understand. Won't you help me set them straight?</p>
+          <p>Join me in Fighting for our financial freedom and balancing the budget by taking out as many public employees as possible. Together, we will defeat the foes of democracy!<img src="images/quotation-marks/quotation-marks-right.png" hspace="10"><br>
+          </p>
+          <p align="center">
+            <input type="submit" name="Submit" value="Game On" id="nextButton">
+          </p>
+        </div>
+        <div class="bottom border"></div>
+      </div></td>
+  </tr>
+</table>
+</body>
+<script language="javascript" type="text/javascript" src="scripts/scott-walker.js"></script>
+<script language="javascript" type="text/javascript">
+//<![CDATA
+window.onload = function() {
+  document.getElementById("nextButton").onclick = function() {
+    window.location = "instructions.html";
+  }
+  
+  // start animation
+  //
+  animateScottWalker(document.getElementById("scott-walker"));
+}
+//]]>
+</script>
+</html>

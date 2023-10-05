@@ -1,0 +1,71 @@
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<title>Budget Blaster</title>
+<link href="styles/styles.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="center" valign="middle"><div class="page">
+        <div class="top border"></div>
+        <div class="content">
+          <img src="images/scott-walker/scott-walker.png" id="scott-walker" style="position:relative; float:right; z-index:2"><img src="images/capitol/capitol.png" style="position:absolute; right:50px; z-index:1"><p align="center" class="title">Level 2: <br>
+            Workers<br>
+            Complete</p>
+          <p>&nbsp;</p>
+          <p align="center" class="title" id="salutation"></p>
+
+          <p><img src="images/quotation-marks/quotation-marks-left.png" hspace="10" align="left" /></p>
+          <p><span id="text"></span><img src="images/quotation-marks/quotation-marks-right.png" hspace="10"></p>
+          <br>
+          <p align="center">
+            <input type="submit" name="Submit" value="Continue" id="nextButton">
+          </p>
+        </div>
+        <div class="bottom border"></div>
+      </div></td>
+  </tr>
+</table>
+</body>
+<script language="javascript" type="text/javascript" src="scripts/utilities/cookies.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/level2.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/workers.js"></script>
+<script language="javascript" type="text/javascript" src="scripts/scott-walker.js"></script>
+<script language="javascript" type="text/javascript">
+//<![CDATA
+window.onload = function() {
+  var score = parseInt(readCookie("score2"));
+  var minSalary = parseInt(readCookie("min-salary"));
+  var maxSalary = parseInt(readCookie("max-salary"));
+  var sumSalaries = parseInt(readCookie("sum-salaries"));
+	
+  // display report
+  //
+  if (score >= workers.length / 2) {
+    document.getElementById("salutation").appendChild(document.createTextNode("Well done!"));
+    document.getElementById("text").appendChild(document.createTextNode("You scored " + score + " out of " + workers.length + " possible points. Good to have you on the team! "));
+  } else {
+    document.getElementById("salutation").appendChild(document.createTextNode("Ooops!"));
+    document.getElementById("text").appendChild(document.createTextNode("You only scored " + score + " out of " + workers.length + " possible points. I hope this doesn't mean that you're developing liberal tendencies. "));
+  }
+
+  document.getElementById("text").appendChild(document.createElement("p"));
+  document.getElementById("text").appendChild(document.createTextNode("You blasted " + score + " public workers earning " + Money.prototype.dollarsToString(minSalary) + " to " + Money.prototype.dollarsToString(maxSalary) + " with an average of " + Money.prototype.dollarsToString(Math.floor(sumSalaries / score)) + ". You just knocked " + Money.prototype.dollarsToString(Math.floor(sumSalaries)) + " from the budget. Wisconsin taxpayers will thank you! "));
+  
+  // activate next button
+  //
+  document.getElementById("nextButton").onclick = function() {
+	
+    // go to next level
+    //
+    window.location = "level3-intro.html";
+  }
+  
+  // start animation
+  //
+  animateScottWalker(document.getElementById("scott-walker"));
+}
+//]]>
+</script>
+</html>
