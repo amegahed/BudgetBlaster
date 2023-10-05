@@ -24,7 +24,7 @@ The game explored a way to present the issues involved in the dispute in an enga
 
 The game provided a way learn about our democratic legislators. 
 
-![Screen Shot](images/screen-shots/got-blasted.png) 
+![Screen Shot](images/screen-shots/level1.png) 
 
 ### Political Contribution Awareness
 
@@ -39,8 +39,6 @@ This Javascript presented an opportunity to explore the following technical feat
 ### Parallax Scrolling
 
 The layered backgrounds used parallax scrolling for a 3D motion effect.
-
-![Screen Shot](images/screen-shots/level1.png) 
 
 ### SVG Illustration
 
